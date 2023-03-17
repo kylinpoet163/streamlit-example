@@ -2,9 +2,9 @@ import streamlit as st
 import json
 
 # 加载包含单位名称的 JSON 文件
-with open('unit_names.json', encoding='gb18030',errors="ignore") as f:
+with open('unit_names.json', encoding='utf-8',errors="ignore") as f:
     data = json.load(f)
-
+    
 # 创建 Streamlit 应用程序
 st.title('单位编码查询')
 unit_code = st.text_input('请输入单位编码：')
