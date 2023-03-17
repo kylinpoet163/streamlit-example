@@ -12,6 +12,6 @@ unit_code = st.text_input('请输入单位编码：')
 # 查询并显示单位名称
 if unit_code in data:
     unit_name = data[unit_code]
-    st.write(f'单位名称为：{unit_code}{unit_name}')
+    st.write(f'单位名称为：\n{unit_code}{unit_name}')
 else:
     st.write('该单位编码不存在，请重新输入。')
