@@ -1,38 +1,17 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
+import json
 
-"""
-# Welcome to Streamlit!
+# 加载包含单位名称的 JSON 文件
+with open('unit_names.json') as f:
+    data = json.load(f)
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+# 创建 Streamlit 应用程序
+st.title('单位编码查询')
+unit_code = st.text_input('请输入单位编码：')
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
-
-
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
-
-    Point = namedtuple('Point', 'x y')
-    data = []
-
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+# 查询并显示单位名称
+if unit_code in data['单位名称']:
+    unit_name = data['单位名称'][unit_code]
+    st.write(f'单位名称为：{unit_code}{unit_name}')
+else:
+    st.write('该单位编码不存在，请重新输入。')
